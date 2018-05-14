@@ -1,42 +1,57 @@
 # 服务端开发文档
 
+## 服务器信息
+
+* OS：Windows Server 2012
+* Python 2.7 with web.py
+
 ## 接口说明
 
-### 登录
+### 注册
 
-* 一个接口说明的例子：
+* 描述：用户注册时请求的接口
 
-  * 描述：登录时请求的接口
+* METHOD：HTTP POST
 
-  * METHOD：HTTP GET
+* URL：目前在本机上测试，上线程序时会放在公网服务器上
 
-  * URL：www.example.com/login.py
+* 请求字段(XML)：
 
-  * 字段：
+  * ReqType：固定为`register`
+  * UsrName：用户名，不可空
+  * Passwd：密码，后期可改为用户名+密码的hash值，不可空
+  * Email：用户邮箱，可为空
+  * Tel：用户电话，可为空
 
-    * usr_name
-    * passwd
+* HTTP请求的body例子：
 
-  * e.g. www.example.com/login.py?usr_name=root&passwd=123456
+  ```xml
+  <!-- register -->
+  <xml>
+  	<ReqType><![CDATA[register]]></ReqType>
+  	<UsrName><![CDATA[admin]]></UsrName>
+  	<Passwd><![CDATA[123456]]></Passwd>
+  	<Email><![CDATA[eg@eg.com]]></Email>
+  	<Tel><![CDATA[123456]]></Tel>
+  </xml>
+  ```
 
-  * 返回：json
+* 返回字段(XML)：
 
-    ```json
-    {
-        "status": "success",
-        "err_code": "0"
-        ...
-    }
+  * ErrInfo：成功时返回`SUCCESS`
+
+    ```
+    SUCCESS:		成功
+    USR_EXISTED:	用户名已存在
     ```
 
-  * Error Code
+* 返回值例子：
 
-    ```
-    0:		Success
-    101:	Wrong Passwd
-    102:	Invalid User
-    ...
-    ```
+  ```xml
+  <xml>
+  	<ErrInfo><![CDATA[{SUCCESS}]]></ErrInfo>
+  </xml>
+  ```
 
 ## 其它
 
