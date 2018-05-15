@@ -6,3 +6,36 @@
 	<Email><![CDATA[eg@eg.com]]></Email>
 	<Tel><![CDATA[123456]]></Tel>
 </xml>
+
+<!-- login -->
+<xml>
+	<ReqType><![CDATA[login]]></ReqType>
+	<UsrName><![CDATA[admin]]></UsrName>
+	<Passwd><![CDATA[123456]]></Passwd>
+</xml>
+
+<!-- select -->
+<xml>
+	<ReqType><![CDATA[select]]></ReqType>
+	<Ids>
+		<Id><![CDATA[123]]></Id>
+		<Id><![CDATA[456]]></Id>
+	</Ids>
+	<Labels>
+		<Label><![CDATA[c++]]></Label>
+		<Label><![CDATA[web]]></Label>
+	</Labels>
+	<Keywords>
+		<Keyword><![CDATA[Guangzhou]]></Keyword>
+		<Keyword><![CDATA[Netease]]></Keyword>
+	</Keywords>
+	<Method><![CDATA[none]]></Method>
+</xml>
+
+<!-- like -->
+<xml>
+	<ReqType><![CDATA[like]]></ReqType>
+	<UsrName><![CDATA[admin]]></UsrName>
+	<Id><![CDATA[1234]]></Id>
+	<GetNoti><![CDATA[true]]></GetNoti>
+</xml>

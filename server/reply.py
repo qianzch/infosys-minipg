@@ -5,7 +5,7 @@ class RES_DATA():
 	def __init__(self):
 		pass
 	def send(self):
-		return "SUCCESS"
+		return 'SUCCESS'
 
 class RES_REGISTER(RES_DATA):
 	def __init__(self, err_info):
@@ -41,6 +41,8 @@ class RES_SELECT(RES_DATA):
 		<ErrInfo><![CDATA[{ErrInfo}]]></ErrInfo>
 		</xml>
 		"""
+		#for i in self.dlist:
+		#	XmlForm += '<List><![CDATA[{}]]></List>'.format(i)
 		return XmlForm.format(**self.__dict)
 
 class RES_LIKE(RES_DATA):
