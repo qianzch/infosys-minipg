@@ -38,3 +38,7 @@ class LOG():
 			get noti: {data.get_noti}
 			""".format(data = data)
 		print info
+
+	@staticmethod
+	def loge(err_info):
+		print err_info

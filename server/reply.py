@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-# 
 import time
 
+# ref: http://www.runoob.com/python/python-mysql.html
+
 class RES_DATA():
 	def __init__(self):
 		pass
