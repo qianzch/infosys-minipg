@@ -1,8 +1,0 @@
-<!-- register -->
-<xml>
-	<ReqType><![CDATA[register]]></ReqType>
-	<UsrName><![CDATA[admin]]></UsrName>
-	<Passwd><![CDATA[123456]]></Passwd>
-	<Email><![CDATA[eg@eg.com]]></Email>
-	<Tel><![CDATA[123456]]></Tel>
-</xml>
