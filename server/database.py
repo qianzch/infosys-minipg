@@ -56,12 +56,12 @@ class INFO():
 	def __init__(self):
 		self.info_id 		= -1
 		self.job_name 		= ''
-		self.job_salary		= 0
+		self.job_salary 	= 0
 		self.job_num 		= 0
 		self.job_info 		= ''
 		self.job_req 		= ''
 		self.job_url 		= ''
-		self.company_name	= ''
+		self.company_name 	= ''
 		self.company_info 	= ''
 		self.company_url 	= ''
 		self.apply_time 	= ''
@@ -71,11 +71,46 @@ class INFO():
 		self.attr_expire 	= ''
 		self.labels 		= []
 
+	def to_str(self):
+		obj_str = """
+		info_id			= {self.info_id}
+		job_name		= {self.job_name}
+		job_salary		= {self.job_salary}
+		job_num			= {self.job_num}
+		job_info		= {self.job_info}
+		job_req			= {self.job_req}
+		job_url			= {self.job_url}
+		company_name	= {self.company_name}
+		company_info	= {self.company_info}
+		company_url		= {self.company_url}
+		apply_time		= {self.apply_time}
+		apply_tel		= {self.apply_tel}
+		apply_email		= {self.apply_email}
+		attr_time		= {self.attr_time}
+		attr_expire		= {self.attr_expire}
+		labels			= {self.labels}
+		""".format(self = self)
+		return obj_str
+
 	def construct(self, sql_obj):
 		pass
 		
 	def construct_from_sql(self, sql_obj):
-		pass
+		self.info_id 		= sql_obj[0]
+		self.job_name 		= sql_obj[1]
+		self.job_salary 	= sql_obj[2]
+		self.job_num 		= sql_obj[3]
+		self.job_info 		= sql_obj[4]
+		self.job_req 		= sql_obj[5]
+		self.job_url 		= sql_obj[6]
+		self.company_name 	= sql_obj[7]
+		self.company_info 	= sql_obj[8]
+		self.company_url 	= sql_obj[9]
+		self.apply_time 	= sql_obj[10]
+		self.apply_tel 		= sql_obj[11]
+		self.apply_email 	= sql_obj[12]
+		self.attr_time 		= sql_obj[13]
+		self.attr_expire 	= sql_obj[14]
 
 # config
 HOST		= '123.207.11.16'
@@ -233,23 +268,26 @@ class DB():
 		status = ERR.SUCCESS
 		self.__connect()
 		infos = []
+		cmd = """
+		select * from info
+		where info_id in (
+			select info_id from info_label
+			where label = '{}'""".format(labels[0])
+		if len(labels) > 3:
+			labels = labels[1: 3]
 		for e in labels:
-			cmd = """
-			select * from info
-			where info_id = '{}'
-			""".format(e)
-			try:
-				self.cursor.execute(cmd)
-				results = self.cursor.fetchall()
-				if results:
-					info = INFO()
-					info.construct_from_sql(results[0])
-					infos.append(info)
-				else:
-					status = ERR.SOME_ID_NOT_EXISTS
-			except Exception as e:
-				status = ERR.ERR_UNKNOWN
-				LOG.loge(str(e))
+			cmd += ' or label = \'{}\''.format(e)
+		cmd += ')'
+		try:
+			self.cursor.execute(cmd)
+			results = self.cursor.fetchall()
+			for e in results:
+				info = INFO()
+				info.construct_from_sql(e)
+				infos.append(info)
+		except Exception as e:
+			status = ERR.ERR_UNKNOWN
+			LOG.loge(str(e))
 		self.__close()
 		return status, infos
 		
@@ -285,9 +323,13 @@ class DB():
 
 
 
-
+'''
 db = DB()
 #usr = USR()
 #usr.construct_from_var('usr3', '123456', '', '', '')
-status, usr = db.get_usr_by_name('user11')
-print status, usr
+status, infos = db._DB__get_info_by_labels(['c++', 'Python', 'dev'])
+print ERR.STR[status]
+if status == ERR.SUCCESS:
+	for e in infos:
+		print e.to_str()
+'''
