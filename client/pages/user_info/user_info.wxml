@@ -1,0 +1,35 @@
+<view class="flex-wrp" style="margin-left: 90px;flex-direction:row;">
+    <view>账号： </view>
+    <view>Sanctimony</view>
+</view>
+<view class="page-section" style="margin-top:20px" bindtap="star">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="flex-wrp" style="flex-direction:row;">
+        <view class="weui-cell weui-cell_input">
+          <text class="weui-input">我的收藏</text>
+        </view>
+        <image src="/images/arrow.png" style="height:20px;width:20px;margin-top:12px"></image>
+      </view>
+    </view>
+</view>
+<view class="page-section" style="margin-top:20px" hidden="{{hidden}}" bindtap="star">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="flex-wrp" style="flex-direction:row;">
+        <view class="weui-cell weui-cell_input">
+          <text class="weui-input">我的发布</text>
+        </view>
+        <image src="/images/arrow.png" style="height:20px;width:20px;margin-top:12px"></image>
+      </view>
+    </view>
+</view>
+<view class="page-section" style="margin-top:20px" hidden="{{hidden}}" bindtap="edit">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="flex-wrp" style="flex-direction:row;">
+        <view class="weui-cell weui-cell_input">
+          <text class="weui-input">发布信息</text>
+        </view>
+        <image src="/images/arrow.png" style="height:20px;width:20px;margin-top:12px"></image>
+      </view>
+    </view>
+</view>
+<button bindtap="logout" type="warn" style="margin-top:20px;width:280px"> 注销 </button>

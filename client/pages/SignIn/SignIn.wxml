@@ -2,7 +2,7 @@
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">   
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="邮箱" />
+        <input class="weui-input" placeholder="账号" />
       </view>
     </view>
   </view>
@@ -13,7 +13,11 @@
       </view>
     </view>
   </view>
+  <button bindtap="signin" type="primary" style="width:280px"> 登录 </button>
   <view style="text-align:center">
-    <navigator url="../Home/Home">没有账号？点此注册</navigator>
+    <view class="flex-wrp" style="margin-left: 90px;flex-direction:row;">
+      <view>没有账号？点此</view>
+      <navigator url="../SignUp/SignUp" class="blue">注册</navigator>
+    </view>
   </view>
 </view>

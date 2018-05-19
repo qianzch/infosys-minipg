@@ -1,4 +1,9 @@
 /* pages/Sign In/Sign In.wxss */
+.flex-wrp {display: flex;}
+.blue
+{
+  color: blue;
+}
 .page-section{
   margin-bottom: 20rpx;
 }

@@ -1,0 +1,36 @@
+<view style="text-align:center">标题</view>
+<view class="flex-wrp" style="margin-left: 30px;flex-direction:row;margin-top:10px">
+    <view>发布时间：</view>
+    <view>2018/5/19</view>
+</view>
+<view class="flex-wrp" style="margin-left: 30px;flex-direction:row;margin-top:10px">
+    <view>截止时间：</view>
+    <view>2018/5/29</view>
+</view>
+<view class="flex-wrp" style="margin-left: 30px;flex-direction:row;margin-top:10px">
+    <view>工作地点：</view>
+    <view>广州</view>
+</view>
+<view class="flex-wrp" style="margin-left: 30px;flex-direction:row;margin-top:10px">
+    <view>薪资：</view>
+    <view>面议</view>
+</view>
+<view class="flex-wrp" style="margin-left: 30px;flex-direction:row;margin-top:10px">
+    <text style="width:90px">职位要求：</text>
+</view>
+<view class="flex-wrp" style="margin-left: 30px;flex-direction:row;margin-top:5px">
+    <text class="text">1.\n 2.</text>
+</view>
+<view class="flex-wrp" style="margin-left: 30px;flex-direction:row;margin-top:10px">
+    <text style="width:90px">工作内容：</text>
+</view>
+<view class="flex-wrp" style="margin-left: 30px;flex-direction:row;margin-top:5px">
+    <text class="text">1.\n 2.</text>
+</view>
+<view class="flex-wrp" style="margin-left: 30px;flex-direction:row;margin-top:10px">
+    <view>标签：</view>
+    <view>标签</view>
+</view>
+<button type="default" style="width:280px;margin-top:10px" hidden="{{hidden1}}"> 收藏 </button>
+<button bindtap="edit" type="primary" style="width:280px;margin-top:10px" hidden="{{hidden2}}"> 编辑 </button>
+<button type="warn" style="width:280px;margin-top:10px" hidden="{{hidden2}}"> 删除 </button>

@@ -2,6 +2,12 @@ Page({
   data: {
     
   },
+  //事件处理函数
+  signin: function () {
+    wx.switchTab({
+      url: '../Home/Home',
+    })
+  },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     console.log("Sign In OnLoad");

@@ -1,30 +1,35 @@
 Page({
   data: {
-
+    hidden: false
   },
-  more: function () {
+  next: function () {
     wx.navigateTo({
-      url: '../more_info/more_info'
+      url: '../SignIn/SignIn'
+    })
+  },
+  skip: function () {
+    wx.navigateTo({
+      url: '../SignIn/SignIn'
     })
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    console.log("Home OnLoad");
+    console.log("bind OnLoad");
   },
   onReady: function () {
     // 页面渲染完成
-    console.log("Home OnReady");
+    console.log("bind OnReady");
   },
   onShow: function () {
     // 页面显示
-    console.log("Home OnShow");
+    console.log("bind OnShow");
   },
   onHide: function () {
     // 页面隐藏
-    console.log("Home OnHide");
+    console.log("bind OnHide");
   },
   onUnload: function () {
     // 页面关闭
-    console.log("Home OnUnload");
+    console.log("bind OnUnload");
   }
 })

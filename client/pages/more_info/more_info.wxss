@@ -1,0 +1,5 @@
+/* pages/more_info/more_info.wxss */
+.flex-wrp {display: flex;}
+.text{
+    word-break: break-all;
+}
