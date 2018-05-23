@@ -2,7 +2,8 @@
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">   
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="请输入要绑定的邮箱" />
+        <input class="weui-input" email="userEmail" type="string" placeholder="请输入要绑定的邮箱"
+        bindinput="userEmailInput" />
       </view>
     </view>
   </view>
@@ -10,10 +11,11 @@
     <view class="flex-wrp" style="flex-direction:row;">
       <view class="weui-cells weui-cells_after-title" style="width:200px">
         <view class="weui-cell weui-cell_input">
-          <input class="weui-input" password type="text" placeholder="请输入验证码" />
+          <input class="weui-input" password="userInput" type="text" placeholder="请输入验证码"
+          bindinput="userGetInput" />
         </view>
       </view>
-      <button type="default" style="width:200px"> 发送验证码 </button>
+      <button type="default" onclick="send" style="width:200px"> 发送验证码 </button>
     </view>
   </view>
   <view class="page-section">

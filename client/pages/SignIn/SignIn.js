@@ -1,11 +1,54 @@
+let data = require('./data.mock.js');
+const baseUrl = "http://localhost:80";
+let parser = require('../../utils/util.js');
+let jsonToXML = parser.jsonToXML;
+let XMLToJson = parser.XMLToJson;
+
 Page({
   data: {
-    
+    userName: '',
+    userPwd: ""
   },
   //事件处理函数
-  signin: function () {
+  userNameInput: function (e) {
+    this.setData({
+      userName: e.detail.value
+    })
+  },
+  passWdInput: function (e) {
+    this.setData({
+      userPwd: e.detail.value
+    })
+  },
+  signin: function (e) {
+    console.log("用户名：" + this.data.userName + " 密码：" + this.data.userPwd);
+    let username = this.data.userName;
+    let pass = this.data.userPwd;
+    let xml_request = jsonToXML(username, pass);
+    this.checkValid(
+      xml_request, function(res) {
+
+      if(res) {
+
+      }
+    }),
     wx.switchTab({
       url: '../Home/Home',
+    });
+    
+  }, 
+  checkValid: function (xml_request, callback) {
+    wx.request({
+      url: baseUrl, //+ '/user/signin',
+      data: xml_request,
+      method:"POST",
+      success:function(res) {
+        console.log(res);
+        callback(res);
+      },
+      complete:function() {
+        console.info("complete request");
+      }
     })
   },
   onLoad: function (options) {

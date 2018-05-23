@@ -43,6 +43,13 @@ class USR():
 		# one usr will not like anything if it is constructed from this call
 		# self.likes	= likes
 
+	def construct_from_req(self, req):
+		self.usr_name 	= req.usr_name
+		self.passwd 	= req.passwd
+		self.wx_id 		= ''
+		self.email 		= req.email
+		self.tel 		= req.tel
+
 	def construct_from_sql(self, sql_obj):
 		self.usr_name 	= sql_obj[0]
 		self.passwd 	= sql_obj[1]

@@ -1,6 +1,42 @@
+let data = require('./data.mock.js');
+
+let parser = require('../../utils/util.js');
+let jsonToXML = parser.jsonToXML;
+let XMLToJson = parser.XMLToJson;
+
+const baseUrl = "http://localhost:80";
+
 Page({
   data: {
+    content:""
+  },
+  userQuery: function (e) {
+    this.setData({
+      content: e.detail.value
+    })
+  },
+  sendKeyWd: function(){
+    let xml_request = jsonToXML(" ",this.data.content);
+    this.send(xml_request, function (res) {
 
+      if (res) {
+
+      }
+    });
+  },
+  send: function (xml_request, callback) {
+    wx.request({
+      url: baseUrl + '/user/signup',
+      data: xml_request,
+      method: "POST",
+      success: function (res) {
+        console.log(res);
+        callback(res);
+      },
+      complete: function () {
+        console.info("complete request");
+      }
+    })
   },
   more: function () {
     wx.navigateTo({

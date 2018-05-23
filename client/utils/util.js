@@ -14,6 +14,49 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const jsonToXML = (username, pass) => {
+  let xml_str = "<xml>\
+  <ReqType><![CDATA[login]] > </ReqType>\
+  < UsrName > <![CDATA[" + username + "]] > </UsrName>\
+  < Passwd > <![CDATA[" + pass + "]] > </Passwd>\
+  < /xml>";
+  return xml_str;
+}
+
+// <xml>
+//   <ErrInfo><![CDATA[想学]] ></ErrInfo>
+// </xml>
+
+
+const XMLToJson = xmlString => {
+  let ret_json;
+  // 
+  var count1 = 0;
+  var count2 = 0;
+  var begin, end;
+  for(var i = 0; i <xmlString.length; i++)
+  {
+    if(xmlString[i] == '[')
+    {
+      count1++;
+      if (count1 == 2)
+        begin = i;
+    }
+    else if(xmlSting[i] == ']')
+    {
+      end = i;
+      break;
+    }
+  }
+  var str;
+  for(var i = begin+1; i < end; i++)
+    str+=xmlString[i];
+  ret_json = str;
+  return ret_json;
+
+}
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  jsonToXML: jsonToXML,
+  XMLToJson: XMLToJson
 }
