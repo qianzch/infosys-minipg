@@ -5,6 +5,7 @@ import reply
 import receive
 import web
 import thread
+import traceback
 from log import REQ_TYPE, LOG
 from database import DB, ERR, USR, INFO
 
@@ -39,6 +40,7 @@ class Handle():
 		usr.construct_from_req(req)
 		status = DB().add_usr(usr)
 		if DEBUG and not status == ERR.SUCCESS:
+			LOG.loge(ERR.STR[status])
 			LOG.logi(req, REQ_TYPE.register)
 		res = reply.RES_REGISTER(ERR.STR[status])
 		return res.send()
@@ -46,6 +48,7 @@ class Handle():
 	def handle_login(self, req):
 		status, usr = DB().get_usr_by_name(req.usr_name)
 		if DEBUG and not status == ERR.SUCCESS:
+			LOG.loge(ERR.STR[status])
 			LOG.logi(req, REQ_TYPE.login)
 		sta_str = ERR.STR[status] if usr.passwd == req.passwd else 'INVALID PASSWD'
 		res = reply.RES_LOGIN(sta_str)
@@ -54,12 +57,19 @@ class Handle():
 	def handle_select(self, req):
 		status, infos = DB().get_info_by_req(req)
 		if DEBUG and not status == ERR.SUCCESS:
+			LOG.loge(ERR.STR[status])
 			LOG.logi(req, REQ_TYPE.select)
+		if status == ERR.SUCCESS:
+			status_label, infos = DB().set_infos_labels(infos)
+			if DEBUG and not status == ERR.SUCCESS:
+				LOG.loge(ERR.STR[status_label])
+				LOG.logi(req, REQ_TYPE.select)
 		res = reply.RES_SELECT(ERR.STR[status], infos)
 		return res.send()
 
 	def handle_like(self, req):
 		if DEBUG:
+			LOG.loge(ERR.STR[status])
 			LOG.logi(req, REQ_TYPE.like)
 		res = reply.RES_LIKE('SUCCESS')
 		return res.send()

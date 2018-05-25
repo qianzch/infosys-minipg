@@ -11,6 +11,7 @@ class ERR():
 	LIKES_NOT_EXIST 	= 14
 	SOME_ID_NOT_EXISTS	= 15
 	EMPTY_SELECT_REQ 	= 16
+	LABEL_NOT_EXISTS 	= 17
 
 	STR = {
 		0:	'SUCCESS',
@@ -20,7 +21,8 @@ class ERR():
 		13:	'ALREADY_LIKED',
 		14:	'LIKES_NOT_EXIST',
 		15:	'SOME_ID_NOT_EXISTS',
-		16:	'EMPTY_SELECT_REQ'
+		16:	'EMPTY_SELECT_REQ',
+		17:	'LABEL_NOT_EXISTS'
 	}
 
 class USR():
@@ -118,6 +120,9 @@ class INFO():
 		self.apply_email 	= sql_obj[12]
 		self.attr_time 		= sql_obj[13]
 		self.attr_expire 	= sql_obj[14]
+
+	def set_labels(self, labels):
+		self.labels = labels
 
 # config
 HOST		= '123.207.11.16'
@@ -246,7 +251,7 @@ class DB():
 			LOG.loge(str(e))
 		self.__close()
 		return status
-	
+
 	def __get_info_by_ids(self, ids):
 		status = ERR.SUCCESS
 		self.__connect()
@@ -313,7 +318,7 @@ class DB():
 		# see 'receive.py' for more info about 'req_select'
 		status = ERR.EMPTY_SELECT_REQ
 		infos = []
-		keywds = req_select.keywords.strip() # split here
+		keywds = [e.strip() for e in req_select.keywords] # split here
 		# if ids are given, then select info use ONLY ids
 		if len(req_select.ids) > 0:
 			return self.__get_info_by_ids(req_select.ids)
@@ -321,22 +326,31 @@ class DB():
 			status, infos = self.__get_info_by_labels(req_select.labels)
 			if not status == ERR.SUCCESS:
 				return status, infos
-		if not keywds == '':
+		if not keywds == []:
 			if len(req_select.labels) > 0:
 				return self.__get_info_by_labels_keywds(req_select.labels, keywds)
 			else:
 				return self.__get_info_by_keywds(keywds)
 		return status, infos
 
-
-
-'''
-db = DB()
-#usr = USR()
-#usr.construct_from_var('usr3', '123456', '', '', '')
-status, infos = db._DB__get_info_by_labels(['c++', 'Python', 'dev'])
-print ERR.STR[status]
-if status == ERR.SUCCESS:
-	for e in infos:
-		print e.to_str()
-'''
+	# set info label
+	def set_infos_labels(self, infos):
+		status = ERR.SUCCESS
+		self.__connect()
+		for info in infos:
+			cmd = """
+			select * from info_label
+			where info_id = '{info.info_id}'
+			""".format(info = info)
+			try:
+				self.cursor.execute(cmd)
+				results = self.cursor.fetchall()
+				if results:
+					info.set_labels([e[1] for e in results])
+				else:
+					status = ERR.LABEL_NOT_EXISTS
+			except Exception as e:
+				status = ERR.ERR_UNKNOWN
+				LOG.loge(str(e))
+		self.__close()
+		return status, infos

@@ -79,6 +79,7 @@ class RES_SELECT(RES_DATA):
 			</Attr>
 		</Piece>
 		""".format(info = info, labels = labels)
+		return xml
 
 	def send(self):
 		XmlForm = """

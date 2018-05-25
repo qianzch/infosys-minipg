@@ -139,8 +139,10 @@
   - ErrInfo：成功时返回`SUCCESS`
 
     ```
-    SUCCESS:		成功
-    ...
+    SUCCESS:			成功
+    SOME_ID_NOT_EXISTS:	按id查找时有些id不存在
+    ERR_UNKNOWN:		可能因为该函数还没有实现
+    EMPTY_SELECT_REQ:	请求为空
     ```
 
   - Piece：有0个或多个，每个Piece代表一条招聘信息
