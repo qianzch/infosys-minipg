@@ -1,4 +1,5 @@
 /* pages/Home/Home.wxss */
+.flex-wrp {display: flex;}
 .search{  
   margin-right: 5px;
   width: 100%;  
