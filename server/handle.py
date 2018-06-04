@@ -68,8 +68,9 @@ class Handle():
 		return res.send()
 
 	def handle_like(self, req):
-		if DEBUG:
+		status = DB().add_usr_like(req.usr_name, req.id)
+		if DEBUG and not status == ERR.SUCCESS:
 			LOG.loge(ERR.STR[status])
 			LOG.logi(req, REQ_TYPE.like)
-		res = reply.RES_LIKE('SUCCESS')
+		res = reply.RES_LIKE(ERR.STR[status])
 		return res.send()

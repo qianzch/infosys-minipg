@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-#
 import MySQLdb
 from log import LOG
+import jieba
 
 class ERR():
-	SUCCESS 			= 0
-	ERR_UNKNOWN 		= 1
-	USR_EXISTED 		= 11
-	USR_NOT_EXISTS		= 12
-	ALREADY_LIKED 		= 13
-	LIKES_NOT_EXIST 	= 14
-	SOME_ID_NOT_EXISTS	= 15
-	EMPTY_SELECT_REQ 	= 16
-	LABEL_NOT_EXISTS 	= 17
+	SUCCESS 				= 0
+	ERR_UNKNOWN 			= 1
+	USR_EXISTED 			= 11
+	USR_NOT_EXISTS			= 12
+	ALREADY_LIKED 			= 13
+	LIKES_NOT_EXIST 		= 14
+	SOME_ID_NOT_EXISTS		= 15
+	EMPTY_SELECT_REQ 		= 16
+	LABEL_NOT_EXISTS 		= 17
+	NO_MATCH_KEYWD_LABEL 	= 18
 
 	STR = {
 		0:	'SUCCESS',
@@ -22,7 +24,8 @@ class ERR():
 		14:	'LIKES_NOT_EXIST',
 		15:	'SOME_ID_NOT_EXISTS',
 		16:	'EMPTY_SELECT_REQ',
-		17:	'LABEL_NOT_EXISTS'
+		17:	'LABEL_NOT_EXISTS',
+		18:	'NO_MATCH_KEYWD_LABEL'
 	}
 
 class USR():
@@ -274,6 +277,7 @@ class DB():
 				status = ERR.ERR_UNKNOWN
 				LOG.loge(str(e))
 		self.__close()
+		dummy, infos = self.set_infos_labels(infos)
 		return status, infos
 		
 	def __get_info_by_labels(self, labels):
@@ -301,24 +305,67 @@ class DB():
 			status = ERR.ERR_UNKNOWN
 			LOG.loge(str(e))
 		self.__close()
+		dummy, infos = self.set_infos_labels(infos)
 		return status, infos
 		
 	def __get_info_by_keywds(self, keywds):
-		return ERR.ERR_UNKNOWN, []
-
-	def __get_info_by_labels_keywds(self, labels, keywds):
 		status = ERR.SUCCESS
 		self.__connect()
 		infos = []
-		keywords = keywds 
-		return ERR.ERR_UNKNOWN, []
+		cmd = """
+		select * from info where (
+			job_name like('%{wd}%')
+    		or job_salary like('%{wd}%')
+    		or job_info like('%{wd}%')
+    		or company_name like('%{wd}%')
+    		or company_info like('%{wd}%')
+    	)""".format(wd = keywds[0])
+		if len(keywds) > 3:
+			keywds = keywds[1: 3]
+		for e in keywds:
+			cmd += """
+			or
+			(job_name like('%{wd}%')
+    		or job_salary like('%{wd}%')
+    		or job_info like('%{wd}%')
+    		or company_name like('%{wd}%')
+    		or company_info like('%{wd}%')
+    		)""".format(wd = e)
+		try:
+			self.cursor.execute(cmd)
+			results = self.cursor.fetchall()
+			for e in results:
+				info = INFO()
+				info.construct_from_sql(e)
+				infos.append(info)
+		except Exception as e:
+			status = ERR.ERR_UNKNOWN
+			LOG.loge(str(e))
+		self.__close()
+		dummy, infos = self.set_infos_labels(infos)
+		return status, infos
+
+	def __get_info_by_labels_keywds(self, labels, keywds):
+		status, infos = self.__get_info_by_keywds(keywds)
+		dummy, infos = self.set_infos_labels(infos)
+		final_infos = []
+		for info in infos:
+			if any([(e.lower() in [x.lower() for x in info.labels]) for e in labels]):
+				final_infos.append(info)
+		status = status if len(final_infos) > 0 else ERR.NO_MATCH_KEYWD_LABEL
+		return status, final_infos
 
 	# get info
 	def get_info_by_req(self, req_select):
 		# see 'receive.py' for more info about 'req_select'
 		status = ERR.EMPTY_SELECT_REQ
 		infos = []
-		keywds = [e.strip() for e in req_select.keywords] # split here
+		keywds = []
+		_keywds = [e.strip() for e in req_select.keywords]
+		# splite here
+		for wd in _keywds:
+			keywds += [e for e in jieba.cut(wd)]
+		keywds = list(set(keywds)) # remove duplicate
 		# if ids are given, then select info use ONLY ids
 		if len(req_select.ids) > 0:
 			return self.__get_info_by_ids(req_select.ids)
