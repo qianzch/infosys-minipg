@@ -3,3 +3,13 @@
 .text{
     word-break: break-all;
 }
+page {
+  line-height: 1.6;
+  font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+  overflow:hidden; 
+  position:fixed; 
+  background-image:url('https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1529110885&di=52bcfbec828c17d498837bf45cea954e&src=http://img.zcool.cn/community/01450758c8b80fa801219c778a2dda.jpg'); 
+  margin: 0px; 
+  /*下面的是关键的设置100%显示*/ 
+  background-size: 100% 100%; 
+}

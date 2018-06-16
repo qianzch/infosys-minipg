@@ -7,6 +7,11 @@ Page({
       url: '../more_info/more_info'
     })
   },
+  search: function () {
+    wx.navigateTo({
+      url: '../star/star'
+    })
+  },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     console.log("Star OnLoad");
