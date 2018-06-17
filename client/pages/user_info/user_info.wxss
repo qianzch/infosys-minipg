@@ -1,4 +1,14 @@
 /* pages/user_info/user_info.wxss */
+page {
+  line-height: 1.6;
+  font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+  overflow:hidden; 
+  position:fixed; 
+  background-image:url('https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1529110885&di=67a907e80cc7bedff48b506be96f3678&src=http://img.zcool.cn/community/0102f656fd025932f875a94463b5ff.png@900w_1l_2o_100sh.jpg'); 
+  margin: 0px; 
+  /*下面的是关键的设置100%显示*/ 
+  background-size: 100% 100%; 
+}
 .flex-wrp {display: flex;}
 .page-section{
   margin-bottom: 20rpx;

@@ -13,6 +13,12 @@
 page {
   line-height: 1.6;
   font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+  overflow:hidden; 
+  position:fixed; 
+  background-image:url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529715742&di=cf08944731f63a38c722ca4d53bcd27b&imgtype=jpg&er=1&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F016c8e565bd50632f8759647a7eba1.png%402o.jpg'); 
+  margin: 0px; 
+  /*下面的是关键的设置100%显示*/ 
+  background-size: 100% 100%; 
 }
 icon {
   vertical-align: middle;

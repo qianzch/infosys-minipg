@@ -1,3 +1,4 @@
+<view>
 <view class="page-body">
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">   
@@ -22,4 +23,5 @@
       <navigator url="../SignUp/SignUp" class="blue">注册</navigator>
     </view>
   </view>
+</view>
 </view>
