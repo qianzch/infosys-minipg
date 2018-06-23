@@ -1,0 +1,11 @@
+# Python:
+*.pyc
+
+# Dev
+source
+create.sql
+test_data.sql
+
+# Test
+test.py
+*.xml

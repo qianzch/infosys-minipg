@@ -1,0 +1,27 @@
+<view>
+<view class="page-body">
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title">   
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" name="userName" type="string" placeholder="账号"
+        bindinput="userNameInput" />
+      </view>
+    </view>
+  </view>
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" password="userPwd" type="text" placeholder="密码" 
+        bindinput="passWdInput"/>
+      </view>
+    </view>
+  </view>
+  <button bindtap="signin" type="primary" style="width:280px"> 登录 </button>
+  <view style="text-align:center">
+    <view class="flex-wrp" style="margin-left: 90px;flex-direction:row;">
+      <view>没有账号？点此</view>
+      <navigator url="../SignUp/SignUp" class="blue">注册</navigator>
+    </view>
+  </view>
+</view>
+</view>

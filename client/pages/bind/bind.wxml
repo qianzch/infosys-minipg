@@ -1,0 +1,25 @@
+<view class="page-body">
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title">   
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" email="userEmail" type="string" placeholder="请输入要绑定的邮箱"
+        bindinput="userEmailInput" />
+      </view>
+    </view>
+  </view>
+  <view class="page-section">
+    <view class="flex-wrp" style="flex-direction:row;">
+      <view class="weui-cells weui-cells_after-title" style="width:200px">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" password="userInput" type="text" placeholder="请输入验证码"
+          bindinput="userGetInput" />
+        </view>
+      </view>
+      <button type="default" onclick="send" style="width:200px"> 发送验证码 </button>
+    </view>
+  </view>
+  <view class="page-section">
+    <button bindtap="next" type="primary" style="margin-top: 20px;width:280px"> 下一步 </button>
+  </view>
+  <button bindtap="skip" type="default" style="margin-top: 20px;width:280px" hidden="{{hidden}}"> 跳过 </button>
+</view>
